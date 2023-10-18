@@ -15,8 +15,8 @@ object DataGenerator {
             ),
             LittleContentCard(
                 id = "Маленькое интересно 1",
-                header = "Заголовок 4",
-                subheader = "Подзаголовок 4"
+                header = "Заголовок 2",
+                subheader = "Подзаголовок 2"
             ),
             BigContentCard(
                 id = "Большое интересно 2",

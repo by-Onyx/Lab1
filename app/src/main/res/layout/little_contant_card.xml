@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_margin="21dp">
+    android:layout_margin="21dp"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,6 +31,7 @@
             android:layout_marginStart="16dp">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/little_card_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -38,6 +40,7 @@
                 android:textSize="16sp"/>
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/little_card_subheader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"

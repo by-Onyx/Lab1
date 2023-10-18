@@ -1,6 +1,8 @@
 package com.example.lab1
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,30 +15,29 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val adapter by lazy { CardAdapter {
-        supportFragmentManager.beginTransaction()
-            .replace(binding.fragmentHost.id, CurrentProductPageFragment("haha"))
-            .commit()
-        }
+    private val adapter by lazy {
+        CardAdapter(
+            onItemClick = { card, cardId ->
+                supportFragmentManager.beginTransaction()
+                    .replace(binding.fragmentHost.id, CurrentProductPageFragment(buttonText = cardId))
+                    .addToBackStack(null)
+                    .commit()
+            }
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.rvContent.adapter = adapter
         val cards = DataGenerator.getCards()
         adapter.submitList(cards)
 
-        /*val adapter = CardAdapter {
-            supportFragmentManager.beginTransaction()
-                .replace(binding.rvContent.id, CurrentProductPageFragment.newInstance())
-                .commit()
-        }
-        val recyclerView: RecyclerView = findViewById(R.id.rvContent)
-        recyclerView.setHasFixedSize(true);
-        recyclerView.adapter = adapter
-        adapter.submitList(cards)*/
+        supportFragmentManager.beginTransaction()
+            .replace(binding.fragmentHost.id, MainPage(adapter))
+            .commit()
     }
+
+
 }
 

@@ -6,7 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class CardAdapter(private val onItemClick: (ContentCards) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CardAdapter(
+    private val onItemClick: (ContentCards, String) -> Unit
+    ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val cards = mutableListOf<ContentCards>()
 
@@ -33,17 +35,22 @@ class CardAdapter(private val onItemClick: (ContentCards) -> Unit) : RecyclerVie
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val card = cards[position]
+        var cardId: String? = null
         when (holder) {
             is BigContentCardViewHolder -> {
                 holder.bind(card as BigContentCard)
+                cardId = card.id
             }
             is LittleContentCardViewHolder -> {
                 holder.bind(card as LittleContentCard)
+                cardId = card.id
             }
         }
 
         holder.itemView.setOnClickListener {
-            onItemClick(card)
+            if (cardId != null) {
+                onItemClick(card, cardId)
+            }
         }
     }
 
@@ -60,8 +67,8 @@ class CardAdapter(private val onItemClick: (ContentCards) -> Unit) : RecyclerVie
     }
 
     inner class LittleContentCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val headerTextView: TextView = itemView.findViewById(R.id.header)
-        private val subheaderTextView: TextView = itemView.findViewById(R.id.subhead)
+        private val headerTextView: TextView = itemView.findViewById(R.id.little_card_header)
+        private val subheaderTextView: TextView = itemView.findViewById(R.id.little_card_subheader)
 
         fun bind(item: LittleContentCard) {
             headerTextView.text = item.header

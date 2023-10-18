@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import com.example.lab1.databinding.CurrentProductPageBinding
 import com.google.android.material.materialswitch.MaterialSwitch
 
-class CurrentProductPageFragment(private val buttonText: String) : Fragment() {
+class CurrentProductPageFragment(
+    private val buttonText: String
+) : Fragment() {
 
     private var binding: CurrentProductPageBinding? = null
 
@@ -28,6 +30,13 @@ class CurrentProductPageFragment(private val buttonText: String) : Fragment() {
         val view = binding?.root
 
         binding?.textId?.text = buttonText
+
+        binding?.currentProductToolbar?.setNavigationOnClickListener {
+            val fragmentManager = activity?.supportFragmentManager
+            if (fragmentManager != null && fragmentManager.backStackEntryCount > 0) {
+                fragmentManager.popBackStack()
+            }
+        }
 
         val descriptionLayout = binding?.descriptionLayout
         val colorSwitch = binding?.colorSwitch
